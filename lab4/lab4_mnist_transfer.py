@@ -10,7 +10,7 @@ from keras.callbacks import TensorBoard
 from keras import backend as K
 
 now = int(time.time())
-NAME = "{}-transfer_CNN".format(now)
+NAME = "transfer_CNN-{}".format(now)
 batch_size = 32
 num_classes = 5 
 epochs = 10
@@ -18,7 +18,7 @@ epochs = 10
 # input image dimensions
 img_rows, img_cols = 28, 28
 # number of convolutional filters to use
-filters = 32
+filters = 64
 # size of pooling area for max pooling
 pool_size = 2
 # convolution kernel size
@@ -49,12 +49,14 @@ def train_model(model, train, test, num_classes):
                   optimizer='adadelta',
                   metrics=['accuracy'])
 
+    tensorboard=TensorBoard(log_dir="logs/{}".format(NAME))
     t = now
     model.fit(x_train, y_train,
               batch_size=batch_size,
               epochs=epochs,
               verbose=1,
-              validation_data=(x_test, y_test))
+              validation_data=(x_test, y_test),
+              callbacks=tensorboard)
     print('Training time: %s' % (now - t))
     score = model.evaluate(x_test, y_test, verbose=0)
     print('Test score:', score[0])
