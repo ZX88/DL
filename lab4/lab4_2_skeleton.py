@@ -74,7 +74,7 @@ def n_network():
 
 
 model = n_network()
-tensorboard = TensorBoard(log_dir="logs/{}".format(NAMe))
+tensorboard = TensorBoard(log_dir="logs/{}".format(NAME))
 model.fit(x_train, y_train,
               batch_size=batch_size,
               epochs=epochs,
