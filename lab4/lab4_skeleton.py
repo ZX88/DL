@@ -54,7 +54,7 @@ def n_network():
     model = Sequential()
     
     #Conv layer
-    model.add(Conv2D(32, (5,5), input_shape = (1,28,28), activation =params['relu']))
+    model.add(Conv2D(32, (5,5), input_shape=(1,28,28), activation='relu'))
     model.add(MaxPooling2D(pool_size = (2,2)))
     model.add(Dropout(0.2))
     model.add(Flatten())
@@ -63,7 +63,7 @@ def n_network():
     model.add(Dense(num_classes, activation = 'softmax'))
     
     #Compiling the neuron 
-    model.compile(loss = 'categorical_crossentropy', optimizer = 'adam', metrics = ['acc', 'mae'])
+    model.compile(loss = 'categorical_crossentropy', optimizer = 'rmsprop', metrics = ['acc', 'mae'])
     
     return model    
 
