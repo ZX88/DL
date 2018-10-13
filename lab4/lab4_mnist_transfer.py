@@ -49,14 +49,14 @@ def train_model(model, train, test, num_classes):
                   optimizer='adadelta',
                   metrics=['accuracy'])
 
-    tensorboard=TensorBoard(log_dir="logs/{}".format(NAME))
+    tensorboard = TensorBoard(log_dir="logs/{}".format(NAME))
     t = now
     model.fit(x_train, y_train,
               batch_size=batch_size,
               epochs=epochs,
               verbose=1,
               validation_data=(x_test, y_test),
-              callbacks=tensorboard)
+              callbacks=[tensorboard])
     print('Training time: %s' % (now - t))
     score = model.evaluate(x_test, y_test, verbose=0)
     print('Test score:', score[0])
