@@ -6,15 +6,17 @@ from keras.datasets import cifar10
 from keras.models import Sequential
 from keras.layers import Dense, Dropout, Activation, Conv2D, MaxPooling2D, Flatten
 from keras.optimizers import RMSprop
-
+from keras.callbacks import TensorBoard
 import matplotlib.pyplot as plt
 import numpy as np
+
+import time
+
+NAME = "lab4_2CNN-{}".format(int(time.time()))
 
 
 print('tensorflow:', tf.__version__)
 print('keras:', keras.__version__)
-
-
 #load (first download if necessary) the CIFAR10 dataset
 # data is already split in train and test datasets
 (x_train, y_train), (x_test, y_test) = cifar10.load_data()
@@ -72,12 +74,15 @@ def n_network():
 
 
 model = n_network()
-
+tensorboard = TensorBoard(log_dir="logs/{}".format(NAMe))
 model.fit(x_train, y_train,
               batch_size=batch_size,
               epochs=epochs,
               validation_data=(x_test, y_test),
-              shuffle=True)
+              shuffle=True,
+              callbacks=[tensorboard])
 
 score = model.evaluate(x_test, y_test)
+
+model.save('cnn_models/{}.model'.format(NAME))
 print("CNN accuracy : %.2f%%" %(score[1]*100))
