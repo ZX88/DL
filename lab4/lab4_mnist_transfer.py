@@ -13,7 +13,7 @@ now = int(time.time())
 NAME = "{}-transfer_CNN".format(now)
 batch_size = 32
 num_classes = 5 
-epochs = 5
+epochs = 10
 
 # input image dimensions
 img_rows, img_cols = 28, 28
