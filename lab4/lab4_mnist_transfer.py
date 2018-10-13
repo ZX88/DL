@@ -24,7 +24,11 @@ pool_size = 2
 # convolution kernel size
 kernel_size = 3
 
-input_shape = (1, img_rows, img_cols)
+
+if K.image_data_format() == 'channels_first':
+    input_shape = (1, img_rows, img_cols)
+else:
+    input_shape = (img_rows, img_cols, 1)
 
 def train_model(model, train, test, num_classes):
     x_train = train[0].reshape((train[0].shape[0],) + input_shape)
