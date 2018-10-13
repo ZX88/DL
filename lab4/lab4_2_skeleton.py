@@ -4,7 +4,7 @@ import tensorflow as tf
 import keras
 from keras.datasets import cifar10
 from keras.models import Sequential
-from keras.layers import Dense, Dropout, Conv2D, MaxPooling2D, Flatten
+from keras.layers import Dense, Dropout, Activation, Conv2D, MaxPooling2D, Flatten
 from keras.optimizers import RMSprop
 
 import matplotlib.pyplot as plt
@@ -19,47 +19,65 @@ print('keras:', keras.__version__)
 # data is already split in train and test datasets
 (x_train, y_train), (x_test, y_test) = cifar10.load_data()
 
-x_train = x_train.reshape(x_train.shape[0], 3, 32, 32)
-x_test = x_test.reshape(x_test.shape[0], 3, 32, 32)
+#x_train = x_train.reshape(x_train.shape[0], 3, 32, 32)
+#x_test = x_test.reshape(x_test.shape[0], 3, 32, 32)
 
+num_classes = 10
+batch_size = 200
+epochs = 40
 
-y_train = keras.utils.to_categorical(y_train)
-y_test = keras.utils.to_categorical(y_test)
+y_train = keras.utils.to_categorical(y_train, num_classes=10)
+y_test = keras.utils.to_categorical(y_test, num_classes=10)
 
 x_train = x_train.astype('float32')
 x_test = x_test.astype('float32')
 x_train /= 255
 x_test /= 255
 
-seed = 7
-np.random.seed(seed)
-
-num_classes = y_train.shape[1]
-
 
 #Our first simple CNN
 def n_network():
     model = Sequential()
-    
-    #Conv layer
-    model.add(Conv2D(64, (5,5), input_shape=(3,32,32), activation='relu'))
-    model.add(MaxPooling2D(pool_size = (2,2)))
-    model.add(Dropout(0.2))
-    model.add(Flatten())
+    model.add(Conv2D(32, (3, 3), padding='same',
+                    input_shape=x_train.shape[1:]))
+    model.add(Activation('relu'))
 
-    model.add(Dense(128 ,kernel_initializer = 'random_uniform', activation = 'relu'))
-    model.add(Dense(num_classes, activation = 'softmax'))
+    model.add(Conv2D(32, (3, 3)))
+    model.add(Activation('relu'))
     
-    #Compiling the neuron 
-    model.compile(loss = 'categorical_crossentropy', optimizer = 'rmsprop', metrics = ['acc', 'mae'])
-    
+    model.add(MaxPooling2D(pool_size=(2, 2)))
+    model.add(Dropout(0.25))
+
+    model.add(Conv2D(64, (3, 3), padding='same'))
+    model.add(Activation('relu'))
+    model.add(Conv2D(64, (3, 3)))
+    model.add(Activation('relu'))
+    model.add(MaxPooling2D(pool_size=(2, 2)))
+    model.add(Dropout(0.25))
+
+    model.add(Flatten())
+    model.add(Dense(512))
+    model.add(Activation('relu'))
+    model.add(Dropout(0.5))
+    model.add(Dense(num_classes))
+    model.add(Activation('softmax'))
+
+    opt = keras.optimizers.rmsprop(lr=0.0001, decay=1e-6)
+
+    model.compile(loss='categorical_crossentropy',
+              optimizer=opt,
+              metrics=['accuracy'])
+        
     return model    
 
 
 model = n_network()
 
-X = x_train
-Y = y_train
-model.fit(X,Y, validation_data=(x_test, y_test), epochs = 100, batch_size = 1000)
+model.fit(x_train, y_train,
+              batch_size=batch_size,
+              epochs=epochs,
+              validation_data=(x_test, y_test),
+              shuffle=True)
+
 score = model.evaluate(x_test, y_test)
 print("CNN accuracy : %.2f%%" %(score[1]*100))
