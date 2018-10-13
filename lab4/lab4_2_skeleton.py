@@ -25,8 +25,8 @@ print('keras:', keras.__version__)
 #x_test = x_test.reshape(x_test.shape[0], 3, 32, 32)
 
 num_classes = 10
-batch_size = 200
-epochs = 40
+batch_size = 32
+epochs = 100
 
 y_train = keras.utils.to_categorical(y_train, num_classes=10)
 y_test = keras.utils.to_categorical(y_test, num_classes=10)
