@@ -94,7 +94,3 @@ Y = y_train
 model.fit(X,Y, validation_data=(x_test, y_test), epochs = 100, batch_size = 40)
 score = model.evaluate(x_test, y_test)
 print("NN accuracy : %.2f%%" %(score[1]*100))
-
-
-
-

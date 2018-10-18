@@ -37,13 +37,12 @@ x_train /= 255
 x_test /= 255
 
 
-#Our first simple CNN
+#CNN_ cifar10
 def n_network():
     model = Sequential()
     model.add(Conv2D(32, (3, 3), padding='same',
                     input_shape=x_train.shape[1:]))
     model.add(Activation('relu'))
-
     model.add(Conv2D(32, (3, 3)))
     model.add(Activation('relu'))
     
