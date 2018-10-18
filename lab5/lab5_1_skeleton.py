@@ -20,6 +20,7 @@ if __name__ == "__main__":
     random.seed(1)
 
     test_generator = My_Data_Sequence_one_branch(test_list, flow_normalization, class_index, batch_size, data_type=data_type, shuffle=False)
+    train_generator = My_Data_Sequence_one_branch(train_list, flow_normalization, class_index, batch_size, data_type=data_type, shuffle=False)
 
     channels = 3
     weights_file='/net/ens/DeepLearning/lab5/Data_TP/models/RGB_model.hdf5'
@@ -35,6 +36,7 @@ if __name__ == "__main__":
     model.load_weights(weights_file)
     #3)
     model.evaluate_generator(test_generator)
+    model.fit_generator(train_generator, validation_data=test_generator, use_multiprocessing=True)
 
     #rgb_train, flow_train, label_train = get_data(train_list, flow_normalization, class_index)
     #rgb_test, flow_test, label_test = get_data(test_list, flow_normalization, class_index)

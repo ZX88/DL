@@ -3,8 +3,10 @@ import keras
 print('Keras version : ', keras.__version__)
 from keras.models import Sequential
 from keras.layers import Dense, Activation, ZeroPadding3D, Dropout, Conv3D, MaxPooling3D, Flatten
-from keras import backend as K
-K.set_image_dim_ordering('tf')
+from keras.models import Model
+
+#from keras import backend as K
+#K.set_image_dim_ordering('tf')
 
 #############################################
 ############## Make the model ###############
@@ -41,6 +43,9 @@ def make_one_branch_model(temporal_dim, width, height, channels, nb_class):
 
 def make_model(temporal_dim, width, height, nb_class):
     #TODO
+
+    #input1 = Input()
+    #model = Model(inputs=, outputs=)
     #Build the siamese model and compile it.
     #Use the following optimizer
     #sgd = keras.optimizers.SGD(lr=0.001, decay=1e-6, momentum=0.5, nesterov=True)
