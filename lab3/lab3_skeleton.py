@@ -73,25 +73,25 @@ def one_neuron():
 def mult_neuron():
     model = Sequential()
     
-    model.add(Dense(num_pixels, input_dim = num_pixels, kernel_initializer = 'normal',activation = 'relu'))
+    model.add(Dense(16, input_dim = num_pixels, kernel_initializer = 'normal',activation = 'relu'))
     model.add(Dense(num_classes, kernel_initializer = 'normal', activation = 'sigmoid'))
     
     #Compiling the neuron 
-    model.compile(loss = 'binary_crossentropy', optimizer = 'adam', metrics = ['acc', 'mae'])
+    model.compile(loss = 'binary_crossentropy', optimizer = 'adam', metrics = ['acc'])
     return model    
 
 
 
 #Basing the model
 
-model = one_neuron()
-
+model = mult_neuron()
+	
 # model1 = mult_neuron()
-model1.summary()
+#model1.summary()
 
 X = x_train
 Y = y_train
-model.fit(X,Y, validation_data=(x_test, y_test), epochs = 20, batch_size = 400)
+model.fit(X,Y, validation_data=(x_test, y_test), epochs = 100, batch_size = 40)
 score = model.evaluate(x_test, y_test)
 print("NN accuracy : %.2f%%" %(score[1]*100))
 
