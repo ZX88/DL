@@ -87,14 +87,10 @@ def mult_neuron():
 model = one_neuron()
 
 # model1 = mult_neuron()
-model1.summary()
+#model1.summary()
 
 X = x_train
 Y = y_train
-model.fit(X,Y, validation_data=(x_test, y_test), epochs = 20, batch_size = 400)
+model.fit(X,Y, validation_data=(x_test, y_test), epochs = 100, batch_size = 40)
 score = model.evaluate(x_test, y_test)
 print("NN accuracy : %.2f%%" %(score[1]*100))
-
-
-
-
