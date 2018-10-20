@@ -29,6 +29,11 @@ if __name__ == "__main__":
 
 
     #TODO
-    #1) create 'one branch' model
+    #1)
+    def model1():
+        model = Sequential()
+
+        model.add()
+    
     #2) load weights file
     #3) evaluate model 

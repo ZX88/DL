@@ -67,7 +67,7 @@ opts =['adam', 'sgd']
 X = x_train
 Y = y_train
 
-#RAW Method to find a way
+
 for layer in Dense_layers:
     for size in Dense_sizes:
         NAME = "size-{}-Layers-{}".format(layer, size)

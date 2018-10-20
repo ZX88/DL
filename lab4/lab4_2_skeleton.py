@@ -72,16 +72,23 @@ def n_network():
     return model    
 
 
-model = n_network()
-tensorboard = TensorBoard(log_dir="logs/{}".format(NAME))
-model.fit(x_train, y_train,
-              batch_size=batch_size,
-              epochs=epochs,
-              validation_data=(x_test, y_test),
-              shuffle=True,
-              callbacks=[tensorboard])
+# model = n_network()
+# tensorboard = TensorBoard(log_dir="logs/{}".format(NAME))
+# model.fit(x_train, y_train,
+#               batch_size=batch_size,
+#               epochs=epochs,
+#               validation_data=(x_test, y_test),
+#               shuffle=True,
+#               callbacks=[tensorboard])
 
-score = model.evaluate(x_test, y_test)
+# score = model.evaluate(x_test, y_test)
 
-model.save('cnn_models/{}.model'.format(NAME))
-print("CNN accuracy : %.2f%%" %(score[1]*100))
+# model.save('cnn_models/{}.model'.format(NAME))
+# print("CNN accuracy : %.2f%%" %(score[1]*100))
+
+import matplotlib 
+import matplotlib.pyplot as plt
+i = 40000
+plt.imshow(x_train[i,:], cmap=matplotlib.cm.binary)
+plt.axis("off")
+plt.show()
