@@ -73,19 +73,19 @@ def one_neuron():
 def mult_neuron():
     model = Sequential()
     
-    model.add(Dense(num_pixels, input_dim = num_pixels, kernel_initializer = 'normal',activation = 'relu'))
+    model.add(Dense(16, input_dim = num_pixels, kernel_initializer = 'normal',activation = 'relu'))
     model.add(Dense(num_classes, kernel_initializer = 'normal', activation = 'sigmoid'))
     
     #Compiling the neuron 
-    model.compile(loss = 'binary_crossentropy', optimizer = 'adam', metrics = ['acc', 'mae'])
+    model.compile(loss = 'binary_crossentropy', optimizer = 'adam', metrics = ['acc'])
     return model    
 
 
 
 #Basing the model
 
-model = one_neuron()
-
+model = mult_neuron()
+	
 # model1 = mult_neuron()
 #model1.summary()
 
